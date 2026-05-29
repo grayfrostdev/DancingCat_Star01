@@ -13,7 +13,19 @@ namespace DancingCat
         public TrayIconManager()
         {
             _notifyIcon = new NotifyIcon();
-            _notifyIcon.Icon = SystemIcons.Application;
+            
+            try 
+            {
+                // 실행 파일과 같은 경로에 복사된 커스텀 아이콘 불러오기
+                string iconPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "cat_icon.ico");
+                _notifyIcon.Icon = new System.Drawing.Icon(iconPath);
+            }
+            catch 
+            {
+                // 만약 파일을 못 찾으면 기본 윈도우 앱 아이콘 사용 (안전 장치)
+                _notifyIcon.Icon = SystemIcons.Application;
+            }
+
             _notifyIcon.Visible = true;
             _notifyIcon.Text = "춤추는 고양이";
 
