@@ -1,0 +1,32 @@
+<Window x:Class="DancingCat.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="춤추는 고양이 설정" Height="580" Width="300"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <StackPanel Margin="20">
+        <TextBlock Text="속도 민감도" FontWeight="Bold" Margin="0,0,0,10"/>
+        <Slider x:Name="SensitivitySlider" Minimum="0.6" Maximum="2.1" Value="0.6" TickFrequency="0.05" IsSnapToTickEnabled="True" ValueChanged="OnSliderValueChanged"/>
+        
+        <TextBlock Text="고양이 크기" FontWeight="Bold" Margin="0,20,0,10"/>
+        <Slider x:Name="SizeSlider" Minimum="50" Maximum="500" Value="200" TickFrequency="10" IsSnapToTickEnabled="True" ValueChanged="OnSliderValueChanged"/>
+        
+        <CheckBox x:Name="ShowStatusCheckBox" Content="상태 텍스트 표시" IsChecked="False" FontWeight="Bold" Margin="0,20,0,0" Checked="OnCheckChanged" Unchecked="OnCheckChanged"/>
+        
+        <TextBlock Text="고양이 스킨 선택" FontWeight="Bold" Margin="0,20,0,10"/>
+        <UniformGrid Columns="3" Height="100">
+            <RadioButton x:Name="Cat1Radio" Content="움짤 1" Style="{StaticResource {x:Type ToggleButton}}" Margin="5" Checked="OnCheckChanged"/>
+            <RadioButton x:Name="Cat2Radio" Content="움짤 2" Style="{StaticResource {x:Type ToggleButton}}" Margin="5" Checked="OnCheckChanged"/>
+            <RadioButton x:Name="Cat3Radio" Content="움짤 3" Style="{StaticResource {x:Type ToggleButton}}" Margin="5" Checked="OnCheckChanged"/>
+            <RadioButton x:Name="Cat4Radio" Content="히오스 1" Style="{StaticResource {x:Type ToggleButton}}" Margin="5" Checked="OnCheckChanged"/>
+            <RadioButton x:Name="Cat5Radio" Content="히오스 2" Style="{StaticResource {x:Type ToggleButton}}" Margin="5" Checked="OnCheckChanged"/>
+            <RadioButton x:Name="Cat6Radio" Content="히오스 3" Style="{StaticResource {x:Type ToggleButton}}" Margin="5" Checked="OnCheckChanged"/>
+        </UniformGrid>
+        
+        <Button Content="고양이 위치 변경" Width="150" Height="30" Margin="0,20,0,0" Click="ChangePositionButton_Click"/>
+        
+        <TextBlock Text="모든 설정은 자동 저장됩니다" Foreground="Gray" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,35,0,15"/>
+        
+        <Button Content="닫기" Width="100" Height="30" Margin="0,10,0,0" Click="CloseButton_Click"/>
+    </StackPanel>
+</Window>

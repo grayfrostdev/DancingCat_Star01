@@ -1,0 +1,29 @@
+<Window x:Class="DancingCat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dancing Cat" Height="200" Width="200"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False">
+    <Grid>
+        <!-- 고양이 애니메이션 이미지 -->
+        <Image x:Name="CatImage" Stretch="Uniform" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <RotateTransform Angle="0"/>
+            </Image.RenderTransform>
+        </Image>
+        
+        <!-- 위치 변경 모드 오버레이 -->
+        <Border x:Name="MoveOverlay" Background="#80000000" Visibility="Collapsed" MouseLeftButtonDown="MoveOverlay_MouseLeftButtonDown">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="드래그하여 창 이동" Foreground="White" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                <Button Content="이동 완료" Width="80" Height="30" Click="MoveCompleteButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 디버그용 상태 텍스트 -->
+        <TextBlock x:Name="StatusText" Text="FPS: 0.0" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="White" Background="#80000000" FontWeight="Bold" FontSize="12" Padding="2" Margin="0,0,5,5"/>
+    </Grid>
+</Window>
