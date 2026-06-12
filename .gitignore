@@ -30,3 +30,7 @@ bld/
 
 # Mac tool
 .DS_Store
+
+# 배포용 빌드 출력 (바이너리, 배포 패키지)
+publish/
+*.zip
