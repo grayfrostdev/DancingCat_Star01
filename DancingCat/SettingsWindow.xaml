@@ -9,7 +9,10 @@
         <Slider x:Name="SensitivitySlider" Minimum="0.6" Maximum="2.1" Value="0.6" TickFrequency="0.05" IsSnapToTickEnabled="True" ValueChanged="OnSliderValueChanged"/>
         
         <TextBlock Text="고양이 크기" FontWeight="Bold" Margin="0,20,0,10"/>
-        <Slider x:Name="SizeSlider" Minimum="50" Maximum="500" Value="200" TickFrequency="10" IsSnapToTickEnabled="True" ValueChanged="OnSliderValueChanged"/>
+        <Slider x:Name="SizeSlider" Minimum="50" Maximum="500" Value="200" TickFrequency="10" IsSnapToTickEnabled="True"
+                ValueChanged="OnSliderValueChanged"
+                Thumb.DragStarted="SizeSlider_DragStarted"
+                Thumb.DragCompleted="SizeSlider_DragCompleted"/>
         
         <CheckBox x:Name="ShowStatusCheckBox" Content="초당 프레임 표시" IsChecked="False" FontWeight="Bold" Margin="0,20,0,0" Checked="OnCheckChanged" Unchecked="OnCheckChanged"/>
         

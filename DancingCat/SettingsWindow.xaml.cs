@@ -64,6 +64,20 @@ namespace DancingCat
             this.Close(); // 위치 변경 모드에 진입하면 설정 창은 닫습니다.
         }
 
+        // 크기 슬라이더 드래그 시작 → 외곽선 표시
+        private void SizeSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)
+        {
+            if (System.Windows.Application.Current.MainWindow is MainWindow mainWindow)
+                mainWindow.ShowSizeBorder(true);
+        }
+
+        // 크기 슬라이더 드래그 종료 → 외곽선 숨김
+        private void SizeSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            if (System.Windows.Application.Current.MainWindow is MainWindow mainWindow)
+                mainWindow.ShowSizeBorder(false);
+        }
+
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

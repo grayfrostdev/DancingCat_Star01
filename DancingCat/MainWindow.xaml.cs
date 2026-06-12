@@ -66,6 +66,12 @@ namespace DancingCat
             SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
         }
 
+        // 크기 조절 중 외곽선 표시/숨김
+        public void ShowSizeBorder(bool show)
+        {
+            SizeBorder.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         // 오버레이에서 마우스 왼쪽 버튼 클릭 시 드래그 이동
         private void MoveOverlay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

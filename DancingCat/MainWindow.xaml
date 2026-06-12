@@ -14,6 +14,15 @@
                 <RotateTransform Angle="0"/>
             </Image.RenderTransform>
         </Image>
+
+        <!-- 크기 조절 중에만 표시되는 외곽선 -->
+        <Rectangle x:Name="SizeBorder"
+                   Stroke="White" StrokeThickness="2" StrokeDashArray="6 3"
+                   Fill="Transparent" Visibility="Collapsed" IsHitTestVisible="False">
+            <Rectangle.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0" Opacity="0.9"/>
+            </Rectangle.Effect>
+        </Rectangle>
         
         <!-- 위치 변경 모드 오버레이 -->
         <Border x:Name="MoveOverlay" Background="#80000000" Visibility="Collapsed" MouseLeftButtonDown="MoveOverlay_MouseLeftButtonDown">
