@@ -10,6 +10,8 @@ namespace DancingCat
         public double CatSize { get; set; } = 200.0;
         public bool ShowStatusText { get; set; } = false;
         public int SelectedCatType { get; set; } = 1;
+        public bool ReverseRotation { get; set; } = false;
+        public bool RunOnStartup { get; set; } = false;
         
         // Window position
         public double WindowLeft { get; set; } = double.NaN;

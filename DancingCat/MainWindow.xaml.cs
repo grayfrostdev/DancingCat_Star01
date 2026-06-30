@@ -7,6 +7,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using System.Windows.Input;
 using System.Linq;
+using Microsoft.Win32;
 
 namespace DancingCat
 {
@@ -28,6 +29,12 @@ namespace DancingCat
 
         // 선택된 고양이 스킨 타입 (1, 2, 3)
         public int SelectedCatType { get; private set; } = 1;
+
+        // 회전 방향 반전 여부 (기본값 false)
+        public bool ReverseRotation { get; private set; } = false;
+
+        // 컴퓨터 시작 시 자동 실행 (기본값 false)
+        public bool RunOnStartup { get; private set; } = false;
 
         // 창의 클릭 무시 여부를 설정하는 메서드
         // isClickThrough가 true이면 마우스 클릭을 무시(통과)하고, false이면 클릭(드래그)을 허용합니다.
@@ -149,9 +156,16 @@ namespace DancingCat
         }
 
         // 설정들을 업데이트하는 메서드
-        public void SetSettings(double speedSensitivity, double catSize, bool showStatus, int catType)
+        public void SetSettings(double speedSensitivity, double catSize, bool showStatus, int catType, bool reverseRotation, bool runOnStartup)
         {
             SpeedSensitivity = speedSensitivity;
+            ReverseRotation = reverseRotation;
+            
+            if (RunOnStartup != runOnStartup)
+            {
+                RunOnStartup = runOnStartup;
+                ApplyStartupRegistry(runOnStartup);
+            }
             
             // 고양이 크기가 변경되었을 때, 왼쪽 아래(좌하단)를 기준으로 하기 위해 Top 위치 보정
             if (CatSize != catSize)
@@ -196,9 +210,34 @@ namespace DancingCat
             _appSettings.CatSize = CatSize;
             _appSettings.ShowStatusText = ShowStatusText;
             _appSettings.SelectedCatType = SelectedCatType;
+            _appSettings.ReverseRotation = ReverseRotation;
+            _appSettings.RunOnStartup = RunOnStartup;
             _appSettings.WindowLeft = this.Left;
             _appSettings.WindowTop = this.Top;
             _appSettings.Save();
+        }
+
+        private void ApplyStartupRegistry(bool runOnStartup)
+        {
+            try
+            {
+                string appName = "DancingCat";
+                string? exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName;
+                if (string.IsNullOrEmpty(exePath)) return;
+                
+                RegistryKey? rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+                if (rk != null)
+                {
+                    if (runOnStartup)
+                        rk.SetValue(appName, exePath);
+                    else
+                        rk.DeleteValue(appName, false);
+                }
+            }
+            catch
+            {
+                // Ignore registry write error
+            }
         }
 
         [DllImport("user32.dll")]
@@ -229,6 +268,8 @@ namespace DancingCat
             CatSize = _appSettings.CatSize;
             ShowStatusText = _appSettings.ShowStatusText;
             SelectedCatType = _appSettings.SelectedCatType;
+            ReverseRotation = _appSettings.ReverseRotation;
+            RunOnStartup = _appSettings.RunOnStartup;
             
             this.Width = CatSize;
             this.Height = CatSize;
@@ -333,7 +374,7 @@ namespace DancingCat
                 // 타입 4, 5, 6: 단일 이미지 회전 처리
                 if (CatImage.RenderTransform is System.Windows.Media.RotateTransform rotateTransform)
                 {
-                    rotateTransform.Angle = (rotateTransform.Angle + 9) % 360;
+                    rotateTransform.Angle = (rotateTransform.Angle + (ReverseRotation ? -9 : 9)) % 360;
                 }
             }
             else

@@ -23,6 +23,9 @@ namespace DancingCat
                 else if (mainWindow.SelectedCatType == 4) Cat4Radio.IsChecked = true;
                 else if (mainWindow.SelectedCatType == 5) Cat5Radio.IsChecked = true;
                 else if (mainWindow.SelectedCatType == 6) Cat6Radio.IsChecked = true;
+                
+                ReverseRotationCheckBox.IsChecked = mainWindow.ReverseRotation;
+                RunOnStartupCheckBox.IsChecked = mainWindow.RunOnStartup;
             }
             
             _isInitializing = false;
@@ -41,7 +44,7 @@ namespace DancingCat
                 else if (Cat5Radio.IsChecked == true) catType = 5;
                 else if (Cat6Radio.IsChecked == true) catType = 6;
 
-                mainWindow.SetSettings(SensitivitySlider.Value, SizeSlider.Value, ShowStatusCheckBox.IsChecked ?? true, catType);
+                mainWindow.SetSettings(SensitivitySlider.Value, SizeSlider.Value, ShowStatusCheckBox.IsChecked ?? true, catType, ReverseRotationCheckBox.IsChecked ?? false, RunOnStartupCheckBox.IsChecked ?? false);
             }
         }
 
